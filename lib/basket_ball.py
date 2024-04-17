@@ -1,3 +1,5 @@
+
+
 def game_dict():
     return {
         "home": {
@@ -182,3 +184,83 @@ def game_dict():
             ]
         }
     }
+
+
+
+def num_points_per_game(player):
+
+    for item in game_dict().get('home').get('players'):
+        if player == item['name']:
+            return item['points_per_game']
+    
+    for item in game_dict().get('away').get('players'):
+        if player == item['name']:
+            return item['points_per_game']
+    
+
+def player_age(name):
+    for item in game_dict().get('home').get('players'):
+        if name == item['name']:
+            return item['age']
+    
+    for item in game_dict().get('away').get('players'):
+        if name == item['name']:
+            return item['age']
+
+def team_colors(team_name):
+
+    for item in game_dict():
+        if team_name == game_dict().get(item).get('team_name'):
+            return game_dict().get(item).get('colors')
+            
+    
+    
+def team_names():
+     names = []
+     for item in game_dict():
+        names.append(game_dict().get(item).get('team_name'))
+     return names
+
+def player_numbers(team_name):
+    numbers =[]
+    game = game_dict()
+    for item in game:
+        if game.get(item).get('team_name') == team_name:
+            for player in game[item]['players']:
+                numbers.append(player['number'])
+    return numbers
+
+
+def player_stats(player_name):
+    game = game_dict()
+    for team in game:
+        for player in game[team]['players']:
+            if player['name'] == player_name:
+                return player
+
+def average_rebounds_by_shoe_brand():
+    game = game_dict()
+    brand_dict = {}
+    for team in game:
+        for player in game[team]['players']:
+            # brand_dict[player['shoe_brand']] if brand_dict[player['shoe_brand']] != None else print('something')
+            if player['shoe_brand'] not in brand_dict:
+                brand_dict[player['shoe_brand']] = [player['rebounds_per_game']]
+            else:
+                brand_dict[player['shoe_brand']].append(player['rebounds_per_game'])
+    for brand in brand_dict:
+        scores = 0
+        sum = 0
+        for value in brand_dict[brand]:
+            sum += value
+            scores += 1
+        formatted_number ='{:0.2f}'.format(sum/scores)
+        print(f'{brand}:  {formatted_number}' )
+    
+    
+    
+    
+    
+    
+    
+    print
